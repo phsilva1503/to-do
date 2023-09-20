@@ -1,0 +1,26 @@
+.table{
+    background-color: aquamarine;
+}
+
+.task-status-done{
+
+    padding: .375rem .75rem;
+    background-color: green;
+    margin-top: 6px;
+    border-radius: 5px;
+}
+
+.task-status-notdone{
+
+    padding: .375rem .75rem;
+    background-color: yellow;
+    position: inherit;
+    margin-top: 6px;
+    border-radius: 5px;
+}
+
+
+.task{
+
+ 
+}
