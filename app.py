@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, redirect,url_for, flash
+from flask import render_template, request, redirect,url_for, flash,jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -38,6 +38,38 @@ def add():
     db.session.add(new_task)
     db.session.commit()
     return redirect(url_for("index"))
+
+
+@app.route("/editar/<int:todo_id>")
+def editar(todo_id):
+    todo = Todo.query.get(todo_id)
+    
+    if todo is None:
+         if todo is None:
+            return jsonify({'mensagem': 'Registro não encontrado'}), 404
+
+    return render_template('editar.html', todo_id=todo_id,todo = todo )
+
+
+# Rota para processar a atualização do registro
+@app.route('/atualizar/<int:todo_id>', methods=['POST'])
+def atualizar(todo_id):
+
+
+    # Consulte o registro no banco de dados
+    todo = Todo.query.get(todo_id)
+    if todo is None:
+        return jsonify({'mensagem': 'Registro não encontrado'}), 404
+    # Atualize os campos desejados (exemplo: 'nome') com base nos dados do formulário
+    if 'name' in request.form:
+        todo.name = request.form['name']
+
+    # Salve as alterações no banco de dados
+    db.session.commit()
+
+    return redirect(url_for("index"))
+
+
 
 @app.route("/update/<int:todo_id>")
 def update(todo_id):
