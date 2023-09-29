@@ -8,8 +8,10 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 #DATABASE
+'''teste'''
 
-app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///db.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Pedro/git/to-do/db.sqlite'
+
 app.config['SQLALCHEMY_TRACK_MODIFICTAIONS'] = False
 db= SQLAlchemy(app)
 
@@ -18,7 +20,9 @@ class Todo(db.Model):
     name = db.Column(db.String(100))
     done = db.Column(db.Boolean)
 
-#Rotas Flask 
+
+#ROTAS FLASK
+
 @app.route("/")
 def index():
     todo_list=Todo.query.all()
@@ -26,11 +30,10 @@ def index():
 
 @app.route ('/add',methods=['POST'])
 def add():
-
     name = request.form.get("name")
 
     if not name:
-        flash("O campo 'name' não pode estar vazio.", 'error')
+        flash("O campo acima não pode estar vazio.", 'error')
         return redirect(url_for("index"))
     
     name = request.form.get("name")
@@ -54,7 +57,6 @@ def editar(todo_id):
 # Rota para processar a atualização do registro
 @app.route('/atualizar/<int:todo_id>', methods=['POST'])
 def atualizar(todo_id):
-
 
     # Consulte o registro no banco de dados
     todo = Todo.query.get(todo_id)
@@ -83,6 +85,7 @@ def update(todo_id):
 @app.route('/delete/<int:todo_id>')
 def delete(todo_id):
     todo= Todo.query.get(todo_id)
+    flash(f'O item {todo_id} foi excluído com sucesso.')
     db.session.delete(todo)
     db.session.commit()
     return redirect(url_for("index"))
