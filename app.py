@@ -4,21 +4,36 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 
+
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 #DATABASE
-'''teste'''
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Pedro/git/to-do/db.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Pedro/git/to-do/db.sqlite' #configura o nome e caminho da banco de dados
 
 app.config['SQLALCHEMY_TRACK_MODIFICTAIONS'] = False
 db= SQLAlchemy(app)
 
+
+#Model : tabela utilizada
 class Todo(db.Model):
-    task_id=db.Column(db.Integer,primary_key = True)
+    task_id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(100))
     done = db.Column(db.Boolean)
+    
+
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), unique=True, nullable=False)
+    senha = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=True)
+    
+
+
+
 
 
 #ROTAS FLASK
