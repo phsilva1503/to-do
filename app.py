@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 #DATABASE
-
+''
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Pedro/git/to-do/db.sqlite' #configura o nome e caminho da banco de dados
 
 app.config['SQLALCHEMY_TRACK_MODIFICTAIONS'] = False
